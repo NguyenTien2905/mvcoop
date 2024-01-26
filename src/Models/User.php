@@ -15,7 +15,7 @@ class User extends Model
 
             $stmt->execute();
 
-            return $stmt->fetchAll();
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
             echo 'ERROR: ' . $e->getMessage();
             die;
