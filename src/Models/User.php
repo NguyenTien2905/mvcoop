@@ -38,15 +38,16 @@ class User extends Model
             die;
         }
     }
-    public function insert($username, $email, $password)
+    public function insert($username, $email, $password, $avatar)
     {
         try {
             $sql = "
-                INSERT INTO users(username, email, password)
-                VALUES (:username, :email, :password) ";
+                INSERT INTO users(username, email, password, avatar)
+                VALUES (:username, :email, :password, :avatar) ";
 
             $stmt =  $this->conn->prepare($sql);
 
+            $stmt->bindParam(':avatar', $avatar);
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $password);
@@ -57,19 +58,21 @@ class User extends Model
             die;
         }
     }
-    public function update($id, $username, $email, $password,)
+    public function update($id, $username, $email, $password, $avatar)
     {
         try {
             $sql = "
                 UPDATE users
                 SET username = :username,
                     email = :email, 
-                    password = :password
+                    password = :password,
+                    avatar = :avatar
                 WHERE id = :id";
 
             $stmt =  $this->conn->prepare($sql);
+            $stmt->bindParam(':avatar', $avatar);
             $stmt->bindParam(':id', $id);
-            $stmt->bindParam(':username', $name);
+            $stmt->bindParam(':username', $username);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $password);
 

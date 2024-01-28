@@ -8,10 +8,13 @@ use Tiennguyen\Mvcoop\Models\User;
 class UserController extends Controller
 {
     private User $user;
-    
+
     private string $folder = 'users.';
 
-    public function __construct() {
+    const PATH_UPLOAD = '/uploads/users/';
+
+    public function __construct()
+    {
         $this->user = new User;
     }
     // Danh Sách
@@ -26,8 +29,23 @@ class UserController extends Controller
     // Thêm mới
     public function create()
     {
-        if (!empty($_POST)){
-            $this -> user -> insert($_POST['name'],$_POST['email'],$_POST['password']);
+        if (!empty($_POST)) {
+
+            $username = $_POST['name'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $avatar = $_FILES['avatar'] ?? null;
+            $avatarPath = null;
+            if (!empty($avatar)) {
+
+                if (!empty($avatar)) {
+                    $avatarPath =  self::PATH_UPLOAD . time() . $avatar['name'];
+                    if (!move_uploaded_file($avatar['tmp_name'], PATH_ROOT . $avatarPath)) {
+                        $avatarPath = null;
+                    }
+                }
+            }
+            $this->user->insert($username, $email, $password, $avatarPath);
             header('Location: /admin/users');
             exit();
         }
@@ -36,31 +54,58 @@ class UserController extends Controller
     // Xem chi tiết theo ID
     public function show($id)
     {
-        $data['user'] = $this->user->getByID($id);
-        if (empty($data['user'])) {
-            die(404);
+        $user = $this->user->getByID($id);
+
+        if (empty($user)) {
+            e404();
         }
-        return $this->rederViewAdmin(
-            $this->folder . __FUNCTION__,
-            $data
-        );
+
+        return $this->rederViewAdmin($this->folder . __FUNCTION__, ['user' => $user]);
     }
     // Cập nhật theo ID
     public function update($id)
     {
-        $data['user'] = $this->user->getByID($id);
+        $user = $this->user->getByID($id);
+        if (!empty($_POST)) {
 
-        if (empty($data['user'])) {
-            die(404);
+            if (empty($user)) {
+                e404();
+            }
+            $username = $_POST['name'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $avatar = $_FILES['avatar'] ?? null;
+
+            $avatarPath = $user['avatar'];
+            if (!empty($avatar)) {
+
+                if (!empty($avatar)) {
+                    $avatarPath =  self::PATH_UPLOAD . $avatar['name'];
+                    if (!move_uploaded_file($avatar['tmp_name'], PATH_ROOT . $avatarPath)) {
+                        $avatarPath = $user['avatar'];
+                    }
+                }
+            }
+            $this->user->update($id, $username, $email, $password, $avatarPath);
+            header('Location: /admin/users');
+            exit();
         }
-        return $this->rederViewAdmin(
-            $this->folder . __FUNCTION__,
-            $data
-        );
+        return $this->rederViewAdmin($this->folder . __FUNCTION__, ['user' => $user]);
     }
     // Xóa theo ID
     public function delete($id)
     {
+        $user = $this->user->getByID($id);
+
+        if (empty($user)) {
+            e404();
+        }
+
         $this->user->delete($id);
+        if (!empty($user['avatar']) && file_exists(PATH_ROOT . $user['avatar'])) {
+            unlink(PATH_ROOT .  $user['avatar']);
+        }
+        header('Location: /admin/users');
+        exit();
     }
 }
