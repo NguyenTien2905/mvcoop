@@ -18,7 +18,15 @@
 
     <div class="container">
         <h1>Cập nhật Danh mục: {{$category['name']}}</h1>
+        @if(!empty($_SESSION['success']))
+                <div class="alert alert-success">
+                    {{ $_SESSION['success'] }}
+                </div>
 
+                @php
+                    $_SESSION['success'] = null;
+                @endphp
+            @endif
         <div class="row">
             <form action="" method="POST">
                 <div class="mb-3 mt-3">
@@ -28,6 +36,7 @@
                         placeholder="Enter name" name="name">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="/admin/categories" class="btn btn-info">Back</a>
             </form>
         </div>
     </div>

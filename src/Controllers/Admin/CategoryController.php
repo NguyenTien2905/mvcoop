@@ -8,10 +8,11 @@ use Tiennguyen\Mvcoop\Models\Category;
 class CategoryController extends Controller
 {
     private Category $category;
-    
+
     private string $folder = 'categories.';
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->category = new Category;
     }
     // Danh Sách
@@ -26,8 +27,8 @@ class CategoryController extends Controller
     // Thêm mới
     public function create()
     {
-        if (!empty($_POST)){
-            $this -> category -> insert($_POST['name']);
+        if (!empty($_POST)) {
+            $this->category->insert($_POST['name']);
             header('Location: /admin/categories');
             exit();
         }
@@ -55,10 +56,11 @@ class CategoryController extends Controller
             }
 
             $name = $_POST['name'];
-          
+            $_SESSION['success'] = 'Thao tác thành công';
 
             $this->category->update($id, $name);
-            header('Location: /admin/categories');
+
+            header("Location: /admin/categories/$id/update");
             exit();
         }
         return $this->rederViewAdmin($this->folder . __FUNCTION__, ['category' => $category]);

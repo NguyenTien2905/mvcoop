@@ -29,7 +29,7 @@
                      <td>{{ $category['name']}}</td>
                      <td>
                         <a class="btn btn-warning" href="/admin/categories/{{ $category['id']}}/update">Update</a>
-                        <a class="btn btn-info" href="/admin/categories/{{ $category['id']}}/show">Show</a>
+                        <a class="btn btn-info" href="/admin/categories/{{ $category['id']}}/show">Details</a>
                         <a class="btn btn-danger"
                             onclick="return confirm('Có muốn xóa hay không ?')"
                             href="/admin/categories/{{ $category['id']}}/delete">Delete</a>

@@ -32,8 +32,10 @@
                 <td>Name</td>
                 <td>{{$category['name']}}</td>
             </tr>
-           
+    
         </table>
+
+        <a href="/admin/categories" class="btn btn-info">Back</a>
 
     </div>
 

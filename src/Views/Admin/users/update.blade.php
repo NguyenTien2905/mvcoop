@@ -20,6 +20,15 @@
         <h1>Cập nhật Người Dùng: {{$user['username']}}</h1>
 
         <div class="row">
+            @if(!empty($_SESSION['success']))
+                <div class="alert alert-success">
+                    {{ $_SESSION['success'] }}
+                </div>
+
+                @php
+                    $_SESSION['success'] = null;
+                @endphp
+            @endif
             <form action="" method="POST" enctype="multipart/form-data">
                 <div class="mb-3 mt-3">
                     <label for="name" class="form-label">Name:</label>
@@ -46,7 +55,9 @@
                         placeholder="Enter password" name="password">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="/admin/users" class="btn btn-info">Back</a>
             </form>
+            
         </div>
     </div>
 

@@ -68,6 +68,7 @@ class UserController extends Controller
         $user = $this->user->getByID($id);
         if (!empty($_POST)) {
 
+
             if (empty($user)) {
                 e404();
             }
@@ -86,8 +87,12 @@ class UserController extends Controller
                     }
                 }
             }
+            $_SESSION['success'] = 'Thao tác thành công';
             $this->user->update($id, $username, $email, $password, $avatarPath);
-            header('Location: /admin/users');
+
+            
+
+            header("Location: /admin/users/$id/update");
             exit();
         }
         return $this->rederViewAdmin($this->folder . __FUNCTION__, ['user' => $user]);

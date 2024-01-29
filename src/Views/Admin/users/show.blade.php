@@ -46,7 +46,7 @@
                 </td>
             </tr>
         </table>
-
+        <a href="/admin/users" class="btn btn-info">Back</a>
     </div>
 
 </body>

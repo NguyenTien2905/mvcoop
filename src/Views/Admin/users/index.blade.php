@@ -35,7 +35,7 @@
                     <td>{{$user['password']}}</td>
                     <td>
                         <a class="btn btn-warning" href="/admin/users/{{ $user['id']}}/update">Update</a>
-                        <a class="btn btn-info" href="/admin/users/{{ $user['id']}}/show">Show</a>
+                        <a class="btn btn-info" href="/admin/users/{{ $user['id']}}/show">Details</a>
                         <a class="btn btn-danger"
                             onclick="return confirm('Có muốn xóa hay không ?')"
                             href="/admin/users/{{ $user['id']}}/delete">Delete</a>
