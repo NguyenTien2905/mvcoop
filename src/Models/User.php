@@ -97,4 +97,22 @@ class User extends Model
             die;
         }
     }
+    public function getByEmailAndPsssword($email, $password)
+    {
+        try {
+            $sql = "SELECT * FROM users WHERE email = :email AND password = :password";
+
+            $stmt =  $this->conn->prepare($sql);
+
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':password', $password);
+
+            $stmt->execute();
+
+            return $stmt->fetch();
+        } catch (\Exception $e) {
+            echo 'ERROR: ' . $e->getMessage();
+            die;
+        }
+    }
 }

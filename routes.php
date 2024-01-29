@@ -5,6 +5,7 @@ use Tiennguyen\Mvcoop\Controllers\Admin\CategoryController;
 use Tiennguyen\Mvcoop\Controllers\Admin\DashboardController;
 use Tiennguyen\Mvcoop\Controllers\Client\HomeController;
 use Tiennguyen\Mvcoop\Controllers\Admin\UserController;
+use Tiennguyen\Mvcoop\Controllers\Admin\AuthenticateController;
 
 // KHỞI TẠO ĐỐI TƯỢNG ROUTER
 $router = new Router();
@@ -14,8 +15,11 @@ $router = new Router();
 $router->get('/', HomeController::class . '@index');
 // $router->get('/', DashboardController::class . '@index');
 
+$router->match('GET|POST', '/auth/login', AuthenticateController::class . '@login');
+
 $router->mount('/admin', function () use ($router) {
     $router->get('/',  DashboardController::class . '@index');
+    $router->get('/logout', AuthenticateController::class . '@logout');
 
     $router->mount('/users', function () use ($router) {
         $router->get('/',                           UserController::class . '@index');
@@ -34,7 +38,12 @@ $router->mount('/admin', function () use ($router) {
     });
 });
 
-
+$router -> before('GET|POST', '/admin/*', function(){
+    if (!isset($_SESSION['user'])){
+        header('Location: /auth/login');
+        exit();
+    }
+});
 
 
 // CHẠY DƯỜNG DẪN

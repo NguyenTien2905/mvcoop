@@ -24,13 +24,19 @@
                     <th>Action</th>
                 </tr>
                 @foreach ($categories as $category)
-                   <tr>
-                        <td><?=$category['id']?></td>
-                        <td><?=$category['name']?></td>>
-                        <td></td>
-                    </tr>
-                @endforeach
-                
+                <tr>
+                     <td>{{ $category['id'] }}</td>
+                     <td>{{ $category['name']}}</td>
+                     <td>
+                        <a class="btn btn-warning" href="/admin/categories/{{ $category['id']}}/update">Update</a>
+                        <a class="btn btn-info" href="/admin/categories/{{ $category['id']}}/show">Show</a>
+                        <a class="btn btn-danger"
+                            onclick="return confirm('Có muốn xóa hay không ?')"
+                            href="/admin/categories/{{ $category['id']}}/delete">Delete</a>
+                     </td>
+                 </tr>
+             @endforeach     
+        
             </table>
         </div>
     </div>

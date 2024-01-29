@@ -59,9 +59,7 @@ class Category extends Model
     {
         try {
             $sql = "
-                UPDATE categories
-                SET name = :name,
-                WHERE id = :id";
+                UPDATE categories SET name = :name WHERE id = :id";
 
             $stmt =  $this->conn->prepare($sql);
             $stmt->bindParam(':id', $id);

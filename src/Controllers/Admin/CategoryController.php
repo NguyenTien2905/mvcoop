@@ -36,31 +36,44 @@ class CategoryController extends Controller
     // Xem chi tiết theo ID
     public function show($id)
     {
-        $data['categories'] = $this->category->getByID($id);
-        if (empty($data['category'])) {
-            die(404);
+        $category = $this->category->getByID($id);
+
+        if (empty($category)) {
+            e404();
         }
-        return $this->rederViewAdmin(
-            $this->folder . __FUNCTION__,
-            $data
-        );
+
+        return $this->rederViewAdmin($this->folder . __FUNCTION__, ['category' => $category]);
     }
     // Cập nhật theo ID
     public function update($id)
     {
-        $data['category'] = $this->category->getByID($id);
+        $category = $this->category->getByID($id);
+        if (!empty($_POST)) {
 
-        if (empty($data['category'])) {
-            die(404);
+            if (empty($category)) {
+                e404();
+            }
+
+            $name = $_POST['name'];
+          
+
+            $this->category->update($id, $name);
+            header('Location: /admin/categories');
+            exit();
         }
-        return $this->rederViewAdmin(
-            $this->folder . __FUNCTION__,
-            $data
-        );
+        return $this->rederViewAdmin($this->folder . __FUNCTION__, ['category' => $category]);
     }
     // Xóa theo ID
     public function delete($id)
     {
+        $category = $this->category->getByID($id);
+
+        if (empty($user)) {
+            e404();
+        }
+
         $this->category->delete($id);
+        header('Location: /admin/categories');
+        exit();
     }
 }
