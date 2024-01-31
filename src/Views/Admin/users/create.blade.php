@@ -28,7 +28,7 @@
                 </div>
                 <div class="mb-3 mt-3">
                     <label for="avatar" class="form-label">Avatar:</label>
-                    <input type="file" class="form-control" id="avatar" required
+                    <input type="file" class="form-control" id="avatar" 
                         placeholder="Enter avatar" name="avatar">
                 </div>
                 <div class="mb-3 mt-3">

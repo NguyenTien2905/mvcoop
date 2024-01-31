@@ -6,6 +6,7 @@ use Tiennguyen\Mvcoop\Controllers\Admin\DashboardController;
 use Tiennguyen\Mvcoop\Controllers\Client\HomeController;
 use Tiennguyen\Mvcoop\Controllers\Admin\UserController;
 use Tiennguyen\Mvcoop\Controllers\Admin\AuthenticateController;
+use Tiennguyen\Mvcoop\Controllers\Admin\PostController;
 
 // KHỞI TẠO ĐỐI TƯỢNG ROUTER
 $router = new Router();
@@ -35,6 +36,14 @@ $router->mount('/admin', function () use ($router) {
         $router->get('/{id}/delete',                CategoryController::class . '@delete');
         $router->match('GET|POST', '/{id}/update',  CategoryController::class . '@update');
         $router->match('GET|POST', '/create',       CategoryController::class . '@create');
+    });
+
+    $router->mount('/posts', function () use ($router) {
+        $router->get('/',                           PostController::class . '@index');
+        $router->get('/{id}/show',                  PostController::class . '@show');
+        $router->get('/{id}/delete',                PostController::class . '@delete');
+        $router->match('GET|POST', '/{id}/update',  PostController::class . '@update');
+        $router->match('GET|POST', '/create',       PostController::class . '@create');
     });
 });
 
