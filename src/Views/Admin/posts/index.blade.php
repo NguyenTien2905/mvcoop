@@ -15,6 +15,8 @@
 <body>
     <div class="container">
         <h1>Danh sách Bài viết</h1>
+        
+        <a href="/admin" class="btn btn-danger">Trang chủ</a>
         <a href="/admin/posts/create" class="btn btn-primary">Thêm mới</a>
         <div class="row">
             <table>
@@ -23,7 +25,6 @@
                     <th>Title</th>
                     <th>Image</th>
                     <th>Excerpt</th>
-                    <th>Content</th>
                     <th>Category</th>
                     <th>Action</th>
                 </tr>
@@ -33,7 +34,6 @@
                     <td>{{$post['title']}}</td>
                     <td><img src="{{$post['image']}}" width="100px"></td>
                     <td>{{$post['excerpt']}}</td>
-                    <td>{{$post['content']}}</td>
                     <td>{{$post['name']}}</td>
                     <td>
                         <a class="btn btn-warning" href="/admin/posts/{{ $post['id']}}/update">Update</a>

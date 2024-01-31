@@ -10,8 +10,8 @@ class Post extends Model
     {
         try {
             $sql = "SELECT posts.id, title, excerpt, content, image, name, category_id
-                        FROM posts
-                        INNER JOIN categories 
+                    FROM posts
+                    INNER JOIN categories 
                         ON posts.category_id = categories.id";
 
             $stmt = $this->conn->prepare($sql);
@@ -45,7 +45,7 @@ class Post extends Model
             die;
         }
     }
-    public function insert($title, $excerpt, $content, $image, $category_id)
+    public function insert($title, $content, $category_id, $excerpt = null, $image = null )
     {
         try {
             $sql = "

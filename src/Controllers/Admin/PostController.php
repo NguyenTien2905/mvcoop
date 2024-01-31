@@ -39,7 +39,7 @@ class PostController extends Controller
             $excerpt = $_POST['excerpt'];
             $content = $_POST['content'];
 
-            if (empty($category_id)){
+            if (empty($category_id)) {
                 $error = 'Chưa chọn danh mục';
             }
             $category_id = $_POST['category_id'];
@@ -54,10 +54,13 @@ class PostController extends Controller
                     }
                 }
             }
-            $this->post->insert($title, $excerpt, $content, $imagePath, $category_id);
+            $this->post->insert($title, $content, $category_id, $excerpt, $imagePath);
             header('Location: /admin/posts');
             exit();
         }
+
+        // $data['categories'] = (new Category) -> getAll();
+
         return $this->rederViewAdmin($this->folder . __FUNCTION__, ['categories' => $categories]);
     }
     // Xem chi tiết theo ID
@@ -90,18 +93,26 @@ class PostController extends Controller
             $image = $_FILES['image'] ?? null;
 
             $imagePath = $data['post']['image'];
+            $move = false;
             if (!empty($image)) {
 
                 if (!empty($image)) {
                     $imagePath =  self::PATH_UPLOAD . $image['name'];
                     if (!move_uploaded_file($image['tmp_name'], PATH_ROOT . $imagePath)) {
                         $imagePath = $data['post']['image'];
+                    } else {
+                        $move = true;
                     }
                 }
             }
-            $_SESSION['success'] = 'Thao tác thành công';
+
             $this->post->update($id, $title, $excerpt, $content, $imagePath, $category_id);
 
+            if ($move && $data['post']['image'] && file_exists(PATH_ROOT . $data['post']['image'])) {
+                unlink(PATH_ROOT . $data['post']['image']);
+            }
+
+            $_SESSION['success'] = 'Thao tác thành công';
 
 
             header("Location: /admin/posts/$id/update");

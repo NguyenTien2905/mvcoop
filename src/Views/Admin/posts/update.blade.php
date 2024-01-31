@@ -17,7 +17,7 @@
 <body>
 
     <div class="container">
-        <h1>Cập nhật Bài viết: {{$post['']}}</h1>
+        <h1>Cập nhật Bài viết: {{$post['title']}}</h1>
 
         <div class="row">
             @if(!empty($_SESSION['success']))
@@ -35,12 +35,11 @@
                     <select class="form-select" aria-label="Default select example" name="category_id">
                         {{-- <option selected>Chọn danh mục</option> --}}
                         @foreach ($categories as $category)
-                        
-                        @if ($post['category_id'] == $category['id'])
-                            <option value="{{ $post['id'] }}" selected>{{ $category['name'] }}</option>
-                        @endif
-                        
-                            <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+                            <option 
+                            @if ($post['category_id'] == $category['id'])
+                            selected
+                            @endif
+                            value="{{ $category['id'] }}">{{ $category['name'] }}</option>
                         @endforeach
                         </select>
                 </div>
@@ -52,15 +51,11 @@
                 </div>
                 <div class="mb-3 mt-3">
                     <label for="exceprt">Excerpt:</label>
-                    <textarea class="form-control" rows="3" id="exceprt" name="excerpt" required>
-                       {{$post['excerpt']}}
-                    </textarea>
+                    <textarea class="form-control" rows="3" id="exceprt" name="excerpt">{{$post['excerpt']}}</textarea>
                 </div>
                 <div class="mb-3 mt-3">
                     <label for="content">Context:</label>
-                    <textarea class="form-control" rows="5" id="content" name="content" required>
-                        {{$post['content']}}
-                    </textarea>
+                    <textarea class="form-control" rows="5" id="content" name="content" required>{{$post['content']}}</textarea>
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">Image:</label>

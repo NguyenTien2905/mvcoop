@@ -15,6 +15,8 @@
 <body>
     <div class="container">
         <h1>Danh sách Danh mục</h1>
+
+        <a href="/admin" class="btn btn-danger">Trang chủ</a>
         <a href="/admin/categories/create" class="btn btn-info">Thêm mới</a>
         <div class="row">
             <table>
