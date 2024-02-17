@@ -3,10 +3,11 @@
 use Bramus\Router\Router;
 use Tiennguyen\Mvcoop\Controllers\Admin\CategoryController;
 use Tiennguyen\Mvcoop\Controllers\Admin\DashboardController;
-use Tiennguyen\Mvcoop\Controllers\Client\HomeController;
 use Tiennguyen\Mvcoop\Controllers\Admin\UserController;
 use Tiennguyen\Mvcoop\Controllers\Admin\AuthenticateController;
 use Tiennguyen\Mvcoop\Controllers\Admin\PostController;
+use Tiennguyen\Mvcoop\Controllers\Client\HomeController;
+use Tiennguyen\Mvcoop\Controllers\Client\PostController as ClientPostController;
 
 // KHỞI TẠO ĐỐI TƯỢNG ROUTER
 $router = new Router();
@@ -14,7 +15,8 @@ $router = new Router();
 //KHAI BÁO CÁC ĐƯỜNG DẪN MÀ MÌNH MUỐN 
 
 $router->get('/', HomeController::class . '@index');
-// $router->get('/', DashboardController::class . '@index');
+$router->get('/post/category/{category_id}', ClientPostController::class . '@showByCategory');
+$router->get('/post/{id}', ClientPostController::class . '@show');
 
 $router->match('GET|POST', '/auth/login', AuthenticateController::class . '@login');
 

@@ -6,6 +6,21 @@ use Tiennguyen\Mvcoop\Commons\Model;
 
 class Category extends Model
 {
+    public function getForMenu()
+    {
+        try {
+            $sql = "SELECT id, name FROM categories";
+
+            $stmt = $this->conn->prepare($sql);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        } catch (\Exception $e) {
+            echo 'ERROR: ' . $e->getMessage();
+            die;
+        }
+    }
     public function getAll()
     {
         try {

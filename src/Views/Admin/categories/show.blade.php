@@ -1,44 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Xem chi tiết Danh mục</title>
+@extends('layout.master')
 
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('content')
+    <div id="content-wrapper" class="d-flex flex-column">
 
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
 
-<body>
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Xem chi tiết Danh mục</h1>
+                <div class="container">
+                    
+                    <h1> Danh mục: {{$category['name']}}</h1>
+            
+                    <table class="table">
+                        <tr>
+                            <th>Tên trường</th>
+                            <th>Giá trị</th>
+                        </tr>
+                        <tr>
+                            <td>ID</td>
+                            <td>{{$category['id']}}</td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td>{{$category['name']}}</td>
+                        </tr>
+                
+                    </table>
+            
+                    <a href="/admin/categories" class="btn btn-info">Back</a>
+            
+                </div>
 
-    <div class="container">
-        <h1> Danh mục: {{$category['name']}}</h1>
+            </div>
+            <!-- /.container-fluid -->
 
-        <table class="table">
-            <tr>
-                <th>Tên trường</th>
-                <th>Giá trị</th>
-            </tr>
-            <tr>
-                <td>ID</td>
-                <td>{{$category['id']}}</td>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td>{{$category['name']}}</td>
-            </tr>
-    
-        </table>
-
-        <a href="/admin/categories" class="btn btn-info">Back</a>
+        </div>
+        <!-- End of Main Content -->
 
     </div>
-
-</body>
-
-</html>
+@endsection

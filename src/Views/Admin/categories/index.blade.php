@@ -1,47 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout.master')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('content')
+    <div id="content-wrapper" class="d-flex flex-column">
 
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
 
-<body>
-    <div class="container">
-        <h1>Danh sách Danh mục</h1>
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Danh sách Danh mục</h1>
+                <a href="/admin/categories/create" class="btn btn-info">Thêm mới</a>
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($categories as $category)
+                                        <tr>
+                                            <td>{{ $category['id'] }}</td>
+                                            <td>{{ $category['name'] }}</td>
+                                            <td>
+                                                <a class="btn btn-warning"
+                                                    href="/admin/categories/{{ $category['id'] }}/update">Update</a>
+                                                <a class="btn btn-info"
+                                                    href="/admin/categories/{{ $category['id'] }}/show">Details</a>
+                                                <a class="btn btn-danger"
+                                                    onclick="return confirm('Có muốn xóa hay không ?')"
+                                                    href="/admin/categories/{{ $category['id'] }}/delete">Delete</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
-        <a href="/admin" class="btn btn-danger">Trang chủ</a>
-        <a href="/admin/categories/create" class="btn btn-info">Thêm mới</a>
-        <div class="row">
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Action</th>
-                </tr>
-                @foreach ($categories as $category)
-                <tr>
-                     <td>{{ $category['id'] }}</td>
-                     <td>{{ $category['name']}}</td>
-                     <td>
-                        <a class="btn btn-warning" href="/admin/categories/{{ $category['id']}}/update">Update</a>
-                        <a class="btn btn-info" href="/admin/categories/{{ $category['id']}}/show">Details</a>
-                        <a class="btn btn-danger"
-                            onclick="return confirm('Có muốn xóa hay không ?')"
-                            href="/admin/categories/{{ $category['id']}}/delete">Delete</a>
-                     </td>
-                 </tr>
-             @endforeach     
-        
-            </table>
+            </div>
+            <!-- /.container-fluid -->
+
         </div>
-    </div>
-</body>
+        <!-- End of Main Content -->
 
-</html>
+    </div>
+@endsection
